@@ -1,0 +1,31 @@
+#day 1 pro 9
+# Load required libraries
+library(ggplot2)
+library(tidyr)  # part of tidyverse
+
+# Create data frame
+temperature_data <- data.frame(
+  Month = c("Jan", "Feb", "Mar", "Apr", "May"),
+  City_A = c(5, 6, 7, 8, 9),
+  City_B = c(10, 11, 12, 13, 14),
+  City_C = c(15, 16, 17, 18, 19)
+)
+
+# Reshape data using pivot_longer
+melted_data <- pivot_longer(
+  temperature_data,
+  cols = -Month,
+  names_to = "City",
+  values_to = "Temperature"
+)
+
+# Plot heatmap
+ggplot(melted_data, aes(x = Month, y = City, fill = Temperature)) +
+  geom_tile() +
+  scale_fill_gradient(low = "white", high = "black") +
+  labs(
+    title = "Monthly Temperatures",
+    x = "Month",
+    y = "City"
+  ) +
+  theme_minimal()
